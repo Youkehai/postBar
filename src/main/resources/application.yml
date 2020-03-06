@@ -1,0 +1,68 @@
+uploadImageUrl: /usr/local/springstatic/postBar/static/img/upload/
+server:
+  address: 0.0.0.0 
+  port: 10050 #\u7aef\u53e3
+  connection-timeout: 5000  #\u8d85\u65f6\u65f6\u95f4
+  tomcat: 
+    min-spare-threads: 20   #\u521d\u59cb\u7ebf\u7a0b
+    max-threads: 1000        #\u6700\u5927\u7ebf\u7a0b
+spring:
+  mvc: 
+    throw-exception-if-no-handler-found: true  #\u51fa\u73b0\u9519\u8bef\u65f6, \u76f4\u63a5\u629b\u51fa\u5f02\u5e38
+  application:
+    name:  postBar
+  aop: 
+    auto: true
+    proxy-target-class: true
+  datasource: 
+    name: db
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/myPostBar?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    minIdle: 5
+    maxActive: 100
+    initialSize: 10
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 50
+    removeAbandoned: true
+    filters: stat    
+  redis: 
+    database: 0 # Redis数据库索引（默认为0）
+    host: 127.0.0.1
+    port: 6379
+    password: redis123
+    timeout: 5000  # 连接超时时间（毫秒）
+mybatis-plus: 
+  mapperLocations: classpath:/mapper/*/*.xml
+  typeAliasesPackage: com.example.demo.myPostBar.*.mapper  
+  global-config:
+    db-config:
+      field-strategy: ignored
+      #全局默认主键类型
+      id-type: id_worker
+      # 逻辑已删除值
+      logic-delete-value: 1
+      # 逻辑未删除值
+      logic-not-delete-value: 0
+      # 数据库类型
+      db-type: mysql
+    #缓存sql解析
+      sql-parser-cache: true
+  configuration:
+    # sql执行语句打印
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #自动驼峰命名规则
+    map-underscore-to-camel-case: true
+logging:  
+  level: 
+    com.codingapi: error
+    com.base.teacher: info 

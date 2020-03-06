@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.myPostBar.user.mapper.TUserNewsMapper">
+
+	<select id="selectNewsUserInfo" resultType="com.example.demo.myPostBar.user.entity.TUserNews">
+		SELECT
+		un.user_id,un.type,un.`status`,un.send_id,un.id,un.create_date,un.content,u.avatar,u.`name`,u2.avatar as myAvatar,u2.name as myName
+	FROM
+		t_user_news un
+		LEFT JOIN t_user u ON un.user_id = u.id
+		LEFT JOIN t_user u2 ON un.send_id = u2.id
+		${ew.customSqlSegment}
+	</select>
+</mapper>
